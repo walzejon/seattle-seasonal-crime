@@ -9,10 +9,16 @@ shinyUI(fluidPage(
     
     sidebarPanel(
       # All the inputs will go in side panel, right now I have basic inputs as placeholders (although selectinput works pretty well)
+<<<<<<< HEAD
       selectInput("Pick_Crime", label = h3("Select Crime"),
                   choices = unique(crime_data$CRIME_TYPE, incomparables = FALSE),
                   selected = "Burglary"
                   ),
+=======
+      selectInput("Pick_Crime", label = h3("Select Crime"), 
+                  choices = unique(crime_data$CRIME_TYPE, incomparables = FALSE), 
+                  selected = "Burglary"),
+>>>>>>> 06e852664081ca10bc5e3c166731b615d01b9082
       
       selectInput(
         inputId = "changeSeason", 
