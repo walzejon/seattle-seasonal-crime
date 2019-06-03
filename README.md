@@ -25,5 +25,5 @@ Course of Action:
 3. Filter through data by these variables
 4. Create a shiny app **DONE**
 5. Put together an analysis, through chosen format from 4, in a way that answers all of the questions above.
-6. Make sure all important issues are closed on github and that there are no merge conflicts
+6. Make sure all important issues are closed on github and that there are no merge conflicts **DONE**
 7. Work on getting our presentation done (either have a script or at least do a dry run)
