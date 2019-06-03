@@ -4,6 +4,8 @@ Investigating how crime in seattle is related to the different seasons/time peri
 
 REPO: https://github.com/walzejon/seattle-seasonal-crime 
 
+Precint map : https://www.seattle.gov/police/about-us/police-locations/north-precinct 
+
 
 Data: https://data.seattle.gov/Public-Safety/Seattle-Crime-Stats-by-Police-Precinct-2008-Presen/3xqu-vnum 
 
