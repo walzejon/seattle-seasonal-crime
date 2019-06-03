@@ -21,7 +21,7 @@ Data: https://data.seattle.gov/Public-Safety/Seattle-Crime-Stats-by-Police-Preci
 
 Course of Action:  
 1. Get the csv file read. **DONE**
-2. Define classifications for crime type ( severe/not severe - filter just by "theft" or "burglary" as not severe) and for seasons (tourist season is broader, probably summer) **DONE**
+2. Define classifications for crime type (severe/not severe - filter just by "theft" or "burglary" as not severe), seasons (tourist season is broader, probably summer), and for location (division is by done by letters for precinct - SE, SW, N, W, E)  **DONE**
 3. Filter through data by these variables
 4. Create a shiny app **DONE**
 5. Put together an analysis, through chosen format from 4, in a way that answers all of the questions above.
