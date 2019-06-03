@@ -17,8 +17,12 @@ shinyServer(function(input, output) {
   
   output$summaryText <- renderText({
     
+    into_text <- "This is the intro text"
+    some_value1 <- 1
+    some_value2 <- 2
+    ending_text <- "This is the ending text"
     
-    
+    paste(intro_text, some_value1, some_value2, ending_text)
   }) 
   
   output$crimeTable <- renderTable({
