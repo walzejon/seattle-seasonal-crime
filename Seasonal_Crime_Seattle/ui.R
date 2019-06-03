@@ -9,15 +9,9 @@ shinyUI(fluidPage(
     
     sidebarPanel(
       # All the inputs will go in side panel, right now I have basic inputs as placeholders (although selectinput works pretty well)
-      dateRangeInput(
-        inputId = "setDate",
-        label = "Range of observation:", 
-        start = "2008-01-01", 
-        end = "2014-04-30",
-        min = "2008-01-01",
-        max = "2014-04-30"
-        # start/end are values that can be changed & min./max are the furthest options you can choose
-      ),
+      selectInput("Pick_Crime", label = h3("Select Crime"), 
+                  choices = unique(crime_data$CRIME_TYPE, incomparables = FALSE), 
+                  selected = "Burglary"),
       
       selectInput(
         inputId = "changeSeason", 
