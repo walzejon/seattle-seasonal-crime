@@ -18,10 +18,10 @@ Data: https://data.seattle.gov/Public-Safety/Seattle-Crime-Stats-by-Police-Preci
   - When the highest level of crime is taking place. 
 
 Course of Action:  
-1. Get the csv file read. 
-2. Define classifications for crime type (either a scale or just severe/not severe) and for seasons (whether or not we want a specific time frame for tourist season or not)
+1. Get the csv file read. **DONE**
+2. Define classifications for crime type (either a scale or just severe/not severe - this would just be seperated by if the crime-type column has either the word theft or robbery in it = non-violent, otherwise violent crime) and for seasons (whether or not we want a specific time frame for tourist season or not)
 3. Filter through data by these variables
-4. Create either an rmd file with images of plots we made or a shiny app (this is preferred according to the assignment page) 
+4. Create a shiny app **DONE**
 5. Put together an analysis, through chosen format from 4, in a way that answers all of the questions above.
 6. Make sure all important issues are closed on github and that there are no merge conflicts
 7. Work on getting our presentation done (either have a script or at least do a dry run)
