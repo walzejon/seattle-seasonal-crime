@@ -32,7 +32,7 @@ shinyUI(fluidPage(
         # that has values in summary change based off of inputs, and a table which will just be selected data 
         # from the data frame represented as a table. 
         
-        tabPanel("Plot", plotOutput("crimePlot"), img(src='~/../../Documents/seattle-seasonal-crime/data/myImage.png', align = "right"), 
+        tabPanel("Plot", plotOutput("crimePlot"), img(src='~/../../Documents/seattle-seasonal-crime/data/map.jpeg', align = "right"), 
         tabPanel("Summary", textOutput("summaryText")), 
         tabPanel("Table", tableOutput("crimeTable"))
       )
