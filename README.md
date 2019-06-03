@@ -3,6 +3,7 @@ Investigating how crime in seattle is related to the different seasons/time peri
 
 
 REPO: https://github.com/walzejon/seattle-seasonal-crime 
+
 Data:https://data.seattle.gov/Public-Safety/Seattle-Crime-Stats-by-Police-Precinct-2008-Presen/3xqu-vnum 
 The data is collected by the Seattle Police Department and by the Seattle City government offices. The data was accessed from data.seattle.gov the official website for data collected by the City of Seattle. This data was drawn from police reports and records from the year 2008 to the current year of 2019, updated as recently as May 10, 2019. 
 Our targeted audience would be any prospective Seattle tourist and local residents. Understanding the seasonality and severity of crime in the city allows for better attention to specific areas/times by the police, and when to avoid by tourists and locals which in turn could lead to a safer Seattle. 
