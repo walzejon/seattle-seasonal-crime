@@ -13,7 +13,8 @@ shinyServer(function(input, output) {
   
   output$crimePlot <- renderPlot({
     crime_data$REPORT_DATE <- format(temp, format="%m-%d")
-    
+    crime_data <- crime_data %>% filter(CRIME_TYPE == input$Pick_Crime)
+    return (barplot(crime_data$Precinct, xlab = "Precinct", ylab = "Frequency of Specified Crime", border = 'white' ))
     
   })
   
