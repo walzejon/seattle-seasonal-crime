@@ -27,22 +27,43 @@ shinyServer(function(input, output) {
   }) 
   
   output$crimeTable <- renderTable({
-    crime_data$REPORT_DATE <- format(temp, format="%m-%d")
+    crime_data$REPORT_DATE <- format(crime_data$REPORT_DATE, format="%m-%d")
+    crime_data$REPORT_DATE <- as.Date(crime_data$REPORT_DATE, "%m-%d")
     
     if(input$changeSeason == "Winter") {
-      crime_data <- filter(crime_data, REPORT_DATE >= "12-01", REPORT_DATE < "03-01" )
+      
+      crime_data1 <- subset(crime_data, REPORT_DATE >= "2019-12-01")
+      crime_data2 <- subset(crime_data, REPORT_DATE < "2019-03-01")
+      crime_data <- rbind(crime_data1, crime_data2)
+      crime_data$REPORT_DATE <- format(crime_data$REPORT_DATE, format="%m-%d")
+      
+      
       
     }
     if(input$changeSeason == "Spring") {
-      crime_data <- filter(crime_data, REPORT_DATE >= "03-01", REPORT_DATE < "06-01" )
+      
+      crime_data <- subset(crime_data, REPORT_DATE >= "2019-03-01" & REPORT_DATE < "2019-06-01")
+      crime_data$REPORT_DATE <- format(crime_data$REPORT_DATE, format="%m-%d")      
+      
+      
       
     }
     if(input$changeSeason == "Fall") {
-      crime_data <- filter(crime_data, REPORT_DATE >= "06-01", REPORT_DATE < "09-01" )
-     
+      
+      crime_data <- subset(crime_data, REPORT_DATE >= "2019-03-01" & REPORT_DATE < "2019-06-01")
+      crime_data$REPORT_DATE <- format(crime_data$REPORT_DATE, format="%m-%d")     
+      
+      
+      
     }
     else {
-      crime_data <- filter(crime_data, REPORT_DATE >= "09-01", REPORT_DATE < "12-01" )
+      
+      crime_data <- subset(crime_data, REPORT_DATE >= "2019-09-01" & REPORT_DATE < "2019-12-01")
+      crime_data$REPORT_DATE <- format(crime_data$REPORT_DATE, format="%m-%d")   
+      
+      
+      
+      
       
     }
   })
