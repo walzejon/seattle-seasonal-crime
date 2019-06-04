@@ -87,7 +87,7 @@ shinyServer(function(input, output) {
     }
     crime_data$REPORT_DATE <- format(crime_data$REPORT_DATE, format="%m-%d")   
     crime_data <- crime_data %>% filter(CRIME_TYPE == input$Pick_Crime)
-    
+    crime_data <- head( crime_data, n = 20 )
     
     crime_data
     
