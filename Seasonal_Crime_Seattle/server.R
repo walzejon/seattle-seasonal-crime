@@ -30,15 +30,19 @@ shinyServer(function(input, output) {
     crime_data$REPORT_DATE <- format(temp, format="%m-%d")
     
     if(input$changeSeason == "Winter") {
+      crime_data <- filter(crime_data, REPORT_DATE >= "12-01", REPORT_DATE < "03-01" )
       
     }
     if(input$changeSeason == "Spring") {
+      crime_data <- filter(crime_data, REPORT_DATE >= "03-01", REPORT_DATE < "06-01" )
       
     }
     if(input$changeSeason == "Fall") {
-      
+      crime_data <- filter(crime_data, REPORT_DATE >= "06-01", REPORT_DATE < "09-01" )
+     
     }
     else {
+      crime_data <- filter(crime_data, REPORT_DATE >= "09-01", REPORT_DATE < "12-01" )
       
     }
   })
