@@ -1,5 +1,6 @@
 library(shiny)
 library(data.table)
+library(lubridate)
 library(dplyr)
 library(ggplot2)
 
@@ -26,9 +27,20 @@ shinyServer(function(input, output) {
   }) 
   
   output$crimeTable <- renderTable({
+    crime_data$REPORT_DATE <- format(temp, format="%m-%d")
     
-    
-    
+    if(input$changeSeason == "Winter") {
+      
+    }
+    if(input$changeSeason == "Spring") {
+      
+    }
+    if(input$changeSeason == "Fall") {
+      
+    }
+    else {
+      
+    }
   })
   
 })
