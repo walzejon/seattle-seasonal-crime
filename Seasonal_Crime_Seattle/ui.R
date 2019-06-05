@@ -1,5 +1,12 @@
 library(shiny)
 
+#crime_data <- fread('../macuser/Desktop/info201/seattle-seasonal-crime/data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
+crime_data <- fread('~/../../Documents/seattle-seasonal-crime/data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
+
+crime_data$REPORT_DATE <- as.Date(crime_data$REPORT_DATE, "%m/%d/%Y")
+crime_data$REPORT_DATE <- as.Date(crime_data$REPORT_DATE, "$Y-%m-%d")
+
+
 shinyUI(fluidPage(
   
   
@@ -32,9 +39,11 @@ shinyUI(fluidPage(
         # that has values in summary change based off of inputs, and a table which will just be selected data 
         # from the data frame represented as a table. 
         
-        tabPanel("Plot", plotOutput("crimePlot"), img(src='~/../../Documents/seattle-seasonal-crime/data/map.jpeg', align = "right"), 
+        tabPanel("Plot", plotOutput("crimePlot"), 
+                 img(src='~/../../Documents/seattle-seasonal-crime/data/map.jpeg', align = "right")), 
         tabPanel("Summary", textOutput("summaryText")), 
         tabPanel("Table", tableOutput("crimeTable"))
+        
       )
       
     )
@@ -42,5 +51,4 @@ shinyUI(fluidPage(
   )
   
  )
-)
 )
