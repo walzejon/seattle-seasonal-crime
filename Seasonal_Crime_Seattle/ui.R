@@ -40,7 +40,7 @@ shinyUI(fluidPage(
         # from the data frame represented as a table. 
         
         tabPanel("Plot", plotOutput("crimePlot"), 
-                 img(src='../data/map.jpg', align = "right")), 
+                 tags$img(src='/www/map.jpg')), 
         tabPanel("Summary", textOutput("summaryText")), 
         tabPanel("Table", tableOutput("crimeTable"))
         
