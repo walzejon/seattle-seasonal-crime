@@ -97,7 +97,7 @@ shinyServer(function(input, output) {
     }
     if(input$changeSeason == "Fall") {
       
-      crime_data <- subset(crime_data, REPORT_DATE >= "2019-03-01" & REPORT_DATE < "2019-06-01")
+      crime_data <- subset(crime_data, REPORT_DATE >= "2019-06-01" & REPORT_DATE < "2019-09-01")
     }
     else {
       
@@ -119,7 +119,8 @@ shinyServer(function(input, output) {
     
     
     intro_text <- paste("This map shows data of seasonal crime accross different precincts in \n Seattle, WA from 2008 to 2014. \nThe percentage of", input$Pick_Crime,  "crimes in Seattle, 
-                        on average, is", perc_crime_selected,  " % in", input$changeSeason , ".")
+                        on average, is", perc_crime_selected,  " % in", input$changeSeason , ". There were, ", sum_crime_selected, "of" , input$Pick_Crime, "type crimes and ", sum_all_crime, " total \ncrimes
+                        from 2008 to 2014")
     
     intro_text
     
