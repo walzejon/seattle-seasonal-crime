@@ -8,6 +8,7 @@ library(data.table)
 
 #crime_data <- fread('../macuser/Desktop/info201/seattle-seasonal-crime/data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
 crime_data <- fread('../data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
+#crime_data <- fread('~/../../Documents/seattle-seasonal-crime/data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
 
 crime_data$REPORT_DATE <- as.Date(crime_data$REPORT_DATE, "%m/%d/%Y")
 crime_data$REPORT_DATE <- as.Date(crime_data$REPORT_DATE, "$Y-%m-%d")
@@ -70,10 +71,11 @@ shinyServer(function(input, output) {
     
     
     
-    crime_data_plot <- ggplot(data=df, aes(x=SeattleRegions, y=SeattleCount)) +
-      geom_bar(stat="identity", fill="steelblue")
-    # geom_text(aes(label=Sightings), vjust=1.0, color="white", size=3.5)
-    
+    crime_data_plot <- ggplot(data=df, aes(x=SeattleRegions, y=SeattleCount, fill = SeattleRegions)) +
+      geom_bar(stat="identity") +
+      scale_fill_manual(breaks = c("E", "N", "SE", "SW", "W"), 
+                        values=c("#13a516", "#f0091b", "#83127c", "#915c0e", "#0905cc"))
+
     
     
     crime_data_plot
@@ -118,11 +120,10 @@ shinyServer(function(input, output) {
     perc_crime_selected <- round( (sum_crime_selected / sum_all_crime) * 100, digits = 1)
     
     
-    intro_text <- paste("This map shows data of seasonal crime accross different precincts in \n Seattle, WA from 2008 to 2014. \nThe percentage of", input$Pick_Crime,  "crimes in Seattle, 
+    analysis_text <- paste("This analysis shows data of seasonal crime accross different precincts in \n Seattle, WA. \nThe percentage of", input$Pick_Crime,  "crimes in Seattle, 
                         on average, is", perc_crime_selected,  " % in", input$changeSeason , ". There were, ", sum_crime_selected, "of" , input$Pick_Crime, "type crimes and ", sum_all_crime, " total \ncrimes
                         from 2008 to 2014")
-    
-    intro_text
+    analysis_text
     
   }) 
   
@@ -156,7 +157,7 @@ shinyServer(function(input, output) {
     crime_data$REPORT_DATE <- format(crime_data$REPORT_DATE, format="%m-%d")   
     crime_data <- crime_data %>% filter(CRIME_TYPE == input$Pick_Crime)
     
-    crime_data <- head( crime_data, n = 20 )
+    crime_data <- head( crime_data, n = 15 )
     
     crime_data 
     
