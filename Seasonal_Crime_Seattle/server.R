@@ -6,59 +6,65 @@ library(ggplot2)
 library(lubridate)
 library(data.table)
 
-
 #crime_data <- fread('../macuser/Desktop/info201/seattle-seasonal-crime/data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
 crime_data <- fread('../data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
-
 
 crime_data$REPORT_DATE <- as.Date(crime_data$REPORT_DATE, "%m/%d/%Y")
 crime_data$REPORT_DATE <- as.Date(crime_data$REPORT_DATE, "$Y-%m-%d")
 
 shinyServer(function(input, output) {
   
+  # where main visual data is presented alongside map showing the precincts.
   output$crimePlot <- renderPlot({
-    crime_data$REPORT_DATE <- format(temp, format="%m-%d")
-    crime_data <- crime_data %>% filter(CRIME_TYPE == input$Pick_Crime)
-    return (barplot(crime_data$Precinct, xlab = "Precinct", ylab = "Frequency of Specified Crime", border = 'white' ))
+    crime_data$REPORT_DATE <- format(crime_data$REPORT_DATE, format="%m-%d")
+    crime_data$REPORT_DATE <- as.Date(crime_data$REPORT_DATE, "%m-%d")
     
-  })
-  
-
+    if(input$changeSeason == "Winter") {
+      
+      crime_data1 <- subset(crime_data, REPORT_DATE >= "2019-12-01")
+      crime_data2 <- subset(crime_data, REPORT_DATE < "2019-03-01")
+      crime_data <- rbind(crime_data1, crime_data2)
+    }
+    if(input$changeSeason == "Spring") {
+      
+      crime_data <- subset(crime_data, REPORT_DATE >= "2019-03-01" & REPORT_DATE < "2019-06-01")
+      
+    }
+    if(input$changeSeason == "Fall") {
+      
+      crime_data <- subset(crime_data, REPORT_DATE >= "2019-03-01" & REPORT_DATE < "2019-06-01")
+      
+    }
+    else {
+      
+      crime_data <- subset(crime_data, REPORT_DATE >= "2019-09-01" & REPORT_DATE < "2019-12-01")
+      
+    }
+    
+    crime_data$REPORT_DATE <- format(crime_data$REPORT_DATE, format="%m-%d")   
+    crime_data <- crime_data %>% filter(CRIME_TYPE == input$Pick_Crime)
     
     
     Regions <- c("N", "E", "W", "SE", "SW")
-    N_crime_count <- 0
-    W_crime_count <- 0
-    E_crime_count <- 0
-    SW_crime_count <- 0
-    SE_crime_count <- 0
     
     
-    for(i in nrow(crime_data)) {
-      
-      if(crime_data[i,7] == Regions[1]) {
-        N_crime_count <- N_crime_count + 1
-        
-      }
-      if(crime_data[i,7] == Regions[2]) {
-        E_crime_count <- E_crime_count + 1
-        
-      }
-      if(crime_data[i,7] == Regions[3]) {
-        W_crime_count <- w_crime_count + 1
-        
-      }
-      if(crime_data[i,7] == Regions[4]) {
-        SE_crime_count <- SE_crime_count + 1 
-        
-      }
-      if(crime_data[i,7] == Regions[5]) {
-        SW_crime_count <- SW_crime_count + 1
-        
-      }
-    }
     
-    crime_count <- c(N_crime_count, E_crime_count, W_crime_count, SW_crime_count, SE_crime_count)
+    west_crime_data <- crime_data %>% filter(Precinct == "W")
+    west_sum_crime <- sum(west_crime_data$STAT_VALUE)
+    
+    east_crime_data <- crime_data %>% filter(Precinct == "E")
+    east_sum_crime <- sum(east_crime_data$STAT_VALUE)
+    
+    north_crime_data <- crime_data %>% filter(Precinct == "N")
+    north_sum_crime <- sum(north_crime_data$STAT_VALUE)
+    
+    southW_crime_data <- crime_data %>% filter(Precinct == "SW")
+    southW_sum_crime <- sum(southW_crime_data$STAT_VALUE)
+    
+    southE_crime_data <- crime_data %>% filter(Precinct == "SE")
+    southE_sum_crime <- sum(southE_crime_data$STAT_VALUE)
+    
+    crime_count <- c(north_sum_crime, west_sum_crime,east_sum_crime, southW_sum_crime, southE_sum_crime)
     
     df <- data.frame(SeattleRegions=Regions, SeattleCount=crime_count)
     
@@ -113,12 +119,13 @@ shinyServer(function(input, output) {
     
     
     intro_text <- paste("This map shows data of seasonal crime accross different precincts in \n Seattle, WA from 2008 to 2014. \nThe percentage of", input$Pick_Crime,  "crimes in Seattle, 
-                    on average, is", perc_crime_selected,  " % in", input$changeSeason , ".")
+                        on average, is", perc_crime_selected,  " % in", input$changeSeason , ".")
     
     intro_text
     
   }) 
   
+  # Table allows for crime by crime comparison of frequency during specific seasons
   output$crimeTable <- renderTable({
     crime_data$REPORT_DATE <- format(crime_data$REPORT_DATE, format="%m-%d")
     crime_data$REPORT_DATE <- as.Date(crime_data$REPORT_DATE, "%m-%d")
@@ -128,35 +135,21 @@ shinyServer(function(input, output) {
       crime_data1 <- subset(crime_data, REPORT_DATE >= "2019-12-01")
       crime_data2 <- subset(crime_data, REPORT_DATE < "2019-03-01")
       crime_data <- rbind(crime_data1, crime_data2)
-      crime_data$REPORT_DATE <- format(crime_data$REPORT_DATE, format="%m-%d")
-      
-      
       
     }
     if(input$changeSeason == "Spring") {
       
       crime_data <- subset(crime_data, REPORT_DATE >= "2019-03-01" & REPORT_DATE < "2019-06-01")
-      crime_data$REPORT_DATE <- format(crime_data$REPORT_DATE, format="%m-%d")      
-      
-      
       
     }
     if(input$changeSeason == "Fall") {
       
       crime_data <- subset(crime_data, REPORT_DATE >= "2019-03-01" & REPORT_DATE < "2019-06-01")
-      crime_data$REPORT_DATE <- format(crime_data$REPORT_DATE, format="%m-%d")     
-      
-      
       
     }
     if(input$changeSeason == "Summer"){
       
       crime_data <- subset(crime_data, REPORT_DATE >= "2019-09-01" & REPORT_DATE < "2019-12-01")
-      crime_data$REPORT_DATE <- format(crime_data$REPORT_DATE, format="%m-%d")   
-      
-      
-      
-      
       
     }
     crime_data$REPORT_DATE <- format(crime_data$REPORT_DATE, format="%m-%d")   
@@ -168,4 +161,4 @@ shinyServer(function(input, output) {
     
   })
   
-
+})
