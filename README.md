@@ -22,8 +22,8 @@ Data: https://data.seattle.gov/Public-Safety/Seattle-Crime-Stats-by-Police-Preci
 Course of Action:  
 1. Get the csv file read. **DONE**
 2. Define classifications for crime type (severe/not severe - filter just by "theft" or "burglary" as not severe), seasons (tourist season is broader, probably summer), and for location (division is by done by letters for precinct - SE, SW, N, W, E)  **DONE**
-3. Filter through data by these variables
+3. Filter through data by these variables **DONE**
 4. Create a shiny app **DONE**
-5. Put together an analysis, through chosen format from 4, in a way that answers all of the questions above.
+5. Put together an analysis, get app functions working, in a way that answers all of the questions above.
 6. Make sure all important issues are closed on github and that there are no merge conflicts **DONE**
 7. Work on getting our presentation done (either have a script or at least do a dry run)
