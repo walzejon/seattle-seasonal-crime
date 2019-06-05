@@ -44,18 +44,28 @@ shinyServer(function(input, output) {
     
     crime_data_plot
     
+    #Generates the sum of all crime commited in Seattle within user specified season of interest
+    sum_all_crime <- input$changeSeason %>% 
+      sum(crime_data$STAT_VALUE)
+    
+    #Generates the sum of specific crime within user specified season of interest
+    sum_crime_selected <- input$changeSeason %>%
+      filter(input$Pick_Crime) %>% 
+      sum(input$STAT_VALUE)
+    
     
   })
   
   # Where the analysis is put together and presented.
   output$summaryText <- renderText({
     
-    into_text <- "This is the intro text"
-    some_value1 <- 1
-    some_value2 <- 2
-    ending_text <- "This is the ending text"
+    #This generates the % of the specified crime type to the sum of all crime committed in specified season
+    perc_crime_selected <- sum_crime_selected / sum_all_crime
     
-    paste(intro_text, some_value1, some_value2, ending_text)
+    into_text <- paste("This map shows data of seasonal crime accross different precincts in 
+    Seattle, WA from 2008 to present. The percentage of" + input$Pick_Crime + "crimes in Seattle, 
+    on average, is" + perc_crime_selected + "in" + input$changeSeason + ".")
+    
   }) 
   
   # Table allows for crime by crime comparison of frequency during specific seasons
