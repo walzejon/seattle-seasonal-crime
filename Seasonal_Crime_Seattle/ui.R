@@ -41,7 +41,7 @@ shinyUI(fluidPage(
         
         tabPanel(
           "Plot", plotOutput("crimePlot"), 
-          img(src='../data/map.jpg', align = "right")
+          img(src='/map.jpg')
         ), 
         tabPanel(
           "Summary", 
