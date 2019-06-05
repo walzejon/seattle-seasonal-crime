@@ -24,8 +24,8 @@ shinyUI(fluidPage(
       selectInput(
         inputId = "changeSeason", 
         label = "Select Season", 
-        choices = c("Winter", "Spring", "Summer", "Fall"),
-        selected = "Winter",
+        choices = c("Summer", "Fall", "Winter", "Spring"),
+        selected = "Fall",
         multiple = FALSE
         # not sure if choices/selected works with strings like that but can test that later
       )

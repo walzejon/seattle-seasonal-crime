@@ -32,12 +32,12 @@ shinyServer(function(input, output) {
     }
     if(input$changeSeason == "Fall") {
       
-      crime_data <- subset(crime_data, REPORT_DATE >= "2019-03-01" & REPORT_DATE < "2019-06-01")
+      crime_data <- subset(crime_data, REPORT_DATE >= "2019-09-01" & REPORT_DATE < "2019-12-01")
       
     }
     else {
       
-      crime_data <- subset(crime_data, REPORT_DATE >= "2019-09-01" & REPORT_DATE < "2019-12-01")
+      crime_data <- subset(crime_data, REPORT_DATE >= "2019-06-01" & REPORT_DATE < "2019-09-01")
       
     }
     
@@ -97,11 +97,11 @@ shinyServer(function(input, output) {
     }
     if(input$changeSeason == "Fall") {
       
-      crime_data <- subset(crime_data, REPORT_DATE >= "2019-06-01" & REPORT_DATE < "2019-09-01")
+      crime_data <- subset(crime_data, REPORT_DATE >= "2019-09-01" & REPORT_DATE < "2019-12-01")
     }
     else {
       
-      crime_data <- subset(crime_data, REPORT_DATE >= "2019-09-01" & REPORT_DATE < "2019-12-01")
+      crime_data <- subset(crime_data, REPORT_DATE >= "2019-06-01" & REPORT_DATE < "2019-09-01")
       
     }
     #Generates the sum of all crime commited in Seattle within user specified season of interest
@@ -145,12 +145,12 @@ shinyServer(function(input, output) {
     }
     if(input$changeSeason == "Fall") {
       
-      crime_data <- subset(crime_data, REPORT_DATE >= "2019-03-01" & REPORT_DATE < "2019-06-01")
+      crime_data <- subset(crime_data, REPORT_DATE >= "2019-09-01" & REPORT_DATE < "2019-12-01")
       
     }
     if(input$changeSeason == "Summer"){
       
-      crime_data <- subset(crime_data, REPORT_DATE >= "2019-09-01" & REPORT_DATE < "2019-12-01")
+      crime_data <- subset(crime_data, REPORT_DATE >= "2019-06-01" & REPORT_DATE < "2019-09-01")
       
     }
     crime_data$REPORT_DATE <- format(crime_data$REPORT_DATE, format="%m-%d")   
