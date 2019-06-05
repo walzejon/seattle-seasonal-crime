@@ -149,7 +149,7 @@ shinyServer(function(input, output) {
       
       
     }
-    else {
+    if(input$changeSeason == "Summer"){
       
       crime_data <- subset(crime_data, REPORT_DATE >= "2019-09-01" & REPORT_DATE < "2019-12-01")
       crime_data$REPORT_DATE <- format(crime_data$REPORT_DATE, format="%m-%d")   
