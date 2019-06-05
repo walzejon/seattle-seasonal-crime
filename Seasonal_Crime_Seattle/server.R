@@ -4,8 +4,9 @@ library(lubridate)
 library(dplyr)
 library(ggplot2)
 library(lubridate)
+library(data.table)
 
-crime_data <- fread('~/../../Documents/seattle-seasonal-crime/data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
+crime_data <- fread('../macuser/Desktop/info201/seattle-seasonal-crime/data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
 crime_data$REPORT_DATE <- as.Date(crime_data$REPORT_DATE, "%m/%d/%Y")
 crime_data$REPORT_DATE <- as.Date(crime_data$REPORT_DATE, "$Y-%m-%d")
 
@@ -44,6 +45,11 @@ shinyServer(function(input, output) {
     
     crime_data_plot
     
+  })
+  
+  #Where the analysis is put together and presented.
+  output$summaryText <- renderText({
+    
     #Generates the sum of all crime commited in Seattle within user specified season of interest
     sum_all_crime <- input$changeSeason %>% 
       sum(crime_data$STAT_VALUE)
@@ -51,19 +57,13 @@ shinyServer(function(input, output) {
     #Generates the sum of specific crime within user specified season of interest
     sum_crime_selected <- input$changeSeason %>%
       filter(input$Pick_Crime) %>% 
-      sum(input$STAT_VALUE)
-    
-    
-  })
-  
-  # Where the analysis is put together and presented.
-  output$summaryText <- renderText({
+      sum(input$STAT_VALUE) * 100
     
     #This generates the % of the specified crime type to the sum of all crime committed in specified season
     perc_crime_selected <- sum_crime_selected / sum_all_crime
     
     into_text <- paste("This map shows data of seasonal crime accross different precincts in 
-    Seattle, WA from 2008 to present. The percentage of" + input$Pick_Crime + "crimes in Seattle, 
+    Seattle, WA from 2008 to 2014. The percentage of" + input$Pick_Crime + "crimes in Seattle, 
     on average, is" + perc_crime_selected + "in" + input$changeSeason + ".")
     
   }) 
