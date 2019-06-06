@@ -83,6 +83,8 @@ shinyServer(function(input, output) {
   
   #Where the analysis is put together and presented.
   output$summaryText <- renderText({
+    crime_data$REPORT_DATE <- format(crime_data$REPORT_DATE, format="%m-%d")
+    crime_data$REPORT_DATE <- as.Date(crime_data$REPORT_DATE, "%m-%d")
     
     # filtering for chosen season
     if(input$changeSeason == "Winter") {
@@ -120,8 +122,8 @@ shinyServer(function(input, output) {
     
     # simple analysis text
     analysis_text <- paste("This analysis shows data of seasonal crime accross different precincts in \n Seattle, WA. \nThe percentage of", input$Pick_Crime,  "crimes in Seattle, 
-                           on average, is", perc_crime_selected,  " % in", input$changeSeason , ". There were, ", sum_crime_selected, "of" , input$Pick_Crime, "type crimes and ", sum_all_crime, " total \ncrimes
-                           from 2008 to 2014")
+                           on average, is", perc_crime_selected,  "% in", input$changeSeason , ". There were ", sum_crime_selected, " reports of" , input$Pick_Crime, "type crimes and ", sum_all_crime, " total \ncrimes
+                           from 2008 to 2014 in the city of Seattle, WA.")
     analysis_text
     
   }) 
