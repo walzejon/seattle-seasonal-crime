@@ -6,6 +6,7 @@ REPO: https://github.com/walzejon/seattle-seasonal-crime
 
 Precint map : https://www.seattle.gov/police/about-us/police-locations/north-precinct 
 
+Shiny App location : https://danyalm.shinyapps.io/Seasonal_Crime_Seattle/
 
 Data: https://data.seattle.gov/Public-Safety/Seattle-Crime-Stats-by-Police-Precinct-2008-Presen/3xqu-vnum 
 

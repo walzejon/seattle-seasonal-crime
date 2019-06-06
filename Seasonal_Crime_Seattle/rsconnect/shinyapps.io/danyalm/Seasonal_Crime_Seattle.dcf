@@ -1,0 +1,12 @@
+name: Seasonal_Crime_Seattle
+title: Seasonal_Crime_Seattle
+username:
+account: danyalm
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 968125
+bundleId: 2134393
+url: https://danyalm.shinyapps.io/Seasonal_Crime_Seattle/
+when: 1559783799.90617
+asMultiple: FALSE
+asStatic: FALSE
