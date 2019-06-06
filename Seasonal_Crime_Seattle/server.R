@@ -4,7 +4,10 @@ library(lubridate)
 library(dplyr)
 library(ggplot2)
 library(lubridate)
-library(data.table)
+
+# Hunter
+# Danyal
+# Jon
 
 #crime_data <- fread('../macuser/Desktop/info201/seattle-seasonal-crime/data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
 crime_data <- fread('../data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
