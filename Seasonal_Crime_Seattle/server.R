@@ -123,7 +123,8 @@ shinyServer(function(input, output) {
                         from 2008 to 2014")
     analysis_text
     
-  }) 
+  })
+  
   
   # Table allows for crime by crime comparison of frequency during specific seasons
   output$crimeTable <- renderTable({

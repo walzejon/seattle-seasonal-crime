@@ -1,7 +1,9 @@
 library(shiny)
 
 #crime_data <- fread('../macuser/Desktop/info201/seattle-seasonal-crime/data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
-crime_data <- fread('../data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
+#crime_data <- fread('../data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
+crime_data <- fread('~/../../Documents/seattle-seasonal-crime/data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
+
 
 crime_data$REPORT_DATE <- as.Date(crime_data$REPORT_DATE, "%m/%d/%Y")
 crime_data$REPORT_DATE <- as.Date(crime_data$REPORT_DATE, "$Y-%m-%d")
@@ -27,7 +29,6 @@ shinyUI(fluidPage(
         choices = c("Summer", "Fall", "Winter", "Spring"),
         selected = "Fall",
         multiple = FALSE
-        # not sure if choices/selected works with strings like that but can test that later
       )
     ),
     
@@ -35,14 +36,14 @@ shinyUI(fluidPage(
       #In the main panel there will be three panels to go through for analysis
       tabsetPanel(
         
-        # A plot (probably a map) that shows trends/relationships/density/whatever, a summary page
-        # that has values in summary change based off of inputs, and a table which will just be selected data 
-        # from the data frame represented as a table. 
+        # Plot of crime during season with the color coded police sector map next to it
         
         tabPanel(
           "Plot", plotOutput("crimePlot"), 
-                 img(src='../data/map.jpg', align = "right")
+                 img(src = "~/../../Documents/seattle-seasonal-crime/data/map.jpeg")
+          
           ), 
+        # summary panel that has intro on data, some analysis, and outro on potential implications
         tabPanel(
           "Summary", 
           
@@ -58,7 +59,7 @@ shinyUI(fluidPage(
           values for crime. This data analysis can be both interesting to consider as a Tourist to Seattle, as well as a law enforcer trying to prevent crimes. Though it is impossible to definitively claim that this data will predict crime, 
            it can stand as a basis to understand broader patterns of crime that take place in the city of Seattle.")
           ), 
-        
+        # data table to analyze about 15 reports of selected crime during selected season
         tabPanel("Table", tableOutput("crimeTable"))
         
       )
