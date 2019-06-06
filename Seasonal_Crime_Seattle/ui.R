@@ -8,7 +8,7 @@ library(shiny)
 #crime_data <- fread('../data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
 crime_data <- fread('~/../../Documents/seattle-seasonal-crime/data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
 
-
+# format dates correctly for data
 crime_data$REPORT_DATE <- as.Date(crime_data$REPORT_DATE, "%m/%d/%Y")
 crime_data$REPORT_DATE <- as.Date(crime_data$REPORT_DATE, "$Y-%m-%d")
 
@@ -22,19 +22,20 @@ shinyUI(fluidPage(
   sidebarLayout(
     
     sidebarPanel(
-      # All the inputs will go in side panel, right now I have basic inputs as placeholders (although selectinput works pretty well)
+      # All the inputs will go in side panel,
+      ## the first will be a widget to select type of crime to look through
+      
       selectInput("Pick_Crime", label = h3("Select Crime"),
                   choices = unique(crime_data$CRIME_TYPE, incomparables = FALSE),
                   selected = "Burglary"
       ),
-      
+      # the other will be to change season of year
       selectInput(
         inputId = "changeSeason", 
         label = "Select Season", 
         choices = c("Summer", "Fall", "Winter", "Spring"),
         selected = "Fall",
         multiple = FALSE
-        # not sure if choices/selected works with strings like that but can test that later
       )
     ),
     
@@ -42,14 +43,15 @@ shinyUI(fluidPage(
       #In the main panel there will be three panels to go through for analysis
       tabsetPanel(
         
-        # A plot (probably a map) that shows trends/relationships/density/whatever, a summary page
-        # that has values in summary change based off of inputs, and a table which will just be selected data 
-        # from the data frame represented as a table. 
-        
+        # Plot and picture will show the distribution of crime, and how a specific precinct of Seattle has
+        # more or less crime than another. Data will take into account user input of season and crime type, and 
+        # the image will be to reference location of crimes to precinct
         tabPanel(
           "Plot", plotOutput("crimePlot"), 
           img(src='/map.jpg')
         ), 
+        
+        # An introduction to the dataset, some analysis of the data, and possible implications of the analysis.
         tabPanel(
           "Summary", 
           
@@ -65,7 +67,8 @@ shinyUI(fluidPage(
             values for crime. This data analysis can be both interesting to consider as a Tourist to Seattle, as well as a law enforcer trying to prevent crimes. Though it is impossible to definitively claim that this data will predict crime, 
             it can stand as a basis to understand broader patterns of crime that take place in the city of Seattle.")
           ), 
-        
+        # table will allow users to view around 15 observations of crime chosen for selected season. This will provide
+        # data such as precinct, geographical location (through police beat coordinates), the report date, and how many times that crime was reported.
         tabPanel("Table", tableOutput("crimeTable"))
         
           )
