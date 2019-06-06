@@ -12,6 +12,7 @@ crime_data$REPORT_DATE <- as.Date(crime_data$REPORT_DATE, "$Y-%m-%d")
 shinyUI(fluidPage(
   
   
+  
   titlePanel("Seasonality of Crime in Seattle"),
   
   sidebarLayout(
@@ -21,7 +22,7 @@ shinyUI(fluidPage(
       selectInput("Pick_Crime", label = h3("Select Crime"),
                   choices = unique(crime_data$CRIME_TYPE, incomparables = FALSE),
                   selected = "Burglary"
-                  ),
+      ),
       
       selectInput(
         inputId = "changeSeason", 
@@ -29,6 +30,7 @@ shinyUI(fluidPage(
         choices = c("Summer", "Fall", "Winter", "Spring"),
         selected = "Fall",
         multiple = FALSE
+        # not sure if choices/selected works with strings like that but can test that later
       )
     ),
     
@@ -36,37 +38,37 @@ shinyUI(fluidPage(
       #In the main panel there will be three panels to go through for analysis
       tabsetPanel(
         
-        # Plot of crime during season with the color coded police sector map next to it
+        # A plot (probably a map) that shows trends/relationships/density/whatever, a summary page
+        # that has values in summary change based off of inputs, and a table which will just be selected data 
+        # from the data frame represented as a table. 
         
         tabPanel(
           "Plot", plotOutput("crimePlot"), 
-                 img(src = "~/../../Documents/seattle-seasonal-crime/data/map.jpeg")
-          
-          ), 
-        # summary panel that has intro on data, some analysis, and outro on potential implications
+          img(src='/map.jpg')
+        ), 
         tabPanel(
           "Summary", 
           
           p("Seattle is one of the most populated cities in America and as such deals with a lot of crime. In recent data collected from the Seattle Police Data (SPD) from 2008 to 2014, 
-          data of crime type and their frequencies was linked to each sector. In Seattle, there are 5 police sectors: The North, West, East, SouthEast, and SouthWest, with the North biggest the largest sector.
-          Tourism is another main staple of Seattle, and seasons like Summer and Spring display a larger amount of foot traffic, increased revenue, and of course drastic effects on crime.
-          This analysis looks to analyze the various types of crime that take place in Seattle, as well as their seasonality - the change that occurs to their prevalence based off of season of the year."),
+            data of crime type and their frequencies was linked to each sector. In Seattle, there are 5 police sectors: The North, West, East, SouthEast, and SouthWest, with the North biggest the largest sector.
+            Tourism is another main staple of Seattle, and seasons like Summer and Spring display a larger amount of foot traffic, increased revenue, and of course drastic effects on crime.
+            This analysis looks to analyze the various types of crime that take place in Seattle, as well as their seasonality - the change that occurs to their prevalence based off of season of the year."),
           
           textOutput("summaryText"),
           
           p("With this analysis we can further make judgements about the most ideal crime types to target, as well as provide the Seattle Police Department with amply evidence
-          to inform the best seasons to target crime especially. By looking at this data we also indirectly come to informally define what stands as Tourist season in Seattle as some months of Spring and Summer do actually see reduced
-          values for crime. This data analysis can be both interesting to consider as a Tourist to Seattle, as well as a law enforcer trying to prevent crimes. Though it is impossible to definitively claim that this data will predict crime, 
-           it can stand as a basis to understand broader patterns of crime that take place in the city of Seattle.")
+            to inform the best seasons to target crime especially. By looking at this data we also indirectly come to informally define what stands as Tourist season in Seattle as some months of Spring and Summer do actually see reduced
+            values for crime. This data analysis can be both interesting to consider as a Tourist to Seattle, as well as a law enforcer trying to prevent crimes. Though it is impossible to definitively claim that this data will predict crime, 
+            it can stand as a basis to understand broader patterns of crime that take place in the city of Seattle.")
           ), 
-        # data table to analyze about 15 reports of selected crime during selected season
+        
         tabPanel("Table", tableOutput("crimeTable"))
         
-      )
+          )
       
-    )
+          )
     
-  )
+      )
   
- )
+  )
 )

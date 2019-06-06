@@ -7,8 +7,8 @@ library(lubridate)
 library(data.table)
 
 #crime_data <- fread('../macuser/Desktop/info201/seattle-seasonal-crime/data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
-#crime_data <- fread('../data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
-crime_data <- fread('~/../../Documents/seattle-seasonal-crime/data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
+crime_data <- fread('../data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
+#crime_data <- fread('~/../../Documents/seattle-seasonal-crime/data/Seattle_Crime_Stats_by_Police_Precinct_2008-Present.csv', header = TRUE,  stringsAsFactors = FALSE)
 
 crime_data$REPORT_DATE <- as.Date(crime_data$REPORT_DATE, "%m/%d/%Y")
 crime_data$REPORT_DATE <- as.Date(crime_data$REPORT_DATE, "$Y-%m-%d")
@@ -71,9 +71,11 @@ shinyServer(function(input, output) {
     
     
     
-    crime_data_plot <- ggplot(data=df, aes(x=SeattleRegions, y=SeattleCount)) +
-      geom_bar(stat="identity", fill="steelblue")
-
+    crime_data_plot <- ggplot(data=df, aes(x=SeattleRegions, y=SeattleCount, fill = SeattleRegions)) +
+      geom_bar(stat="identity") +
+      scale_fill_manual(breaks = c("E", "N", "SE", "SW", "W"), 
+                        values=c("#13a516", "#f0091b", "#83127c", "#915c0e", "#0905cc"))
+    
     
     
     crime_data_plot
@@ -119,12 +121,11 @@ shinyServer(function(input, output) {
     
     
     analysis_text <- paste("This analysis shows data of seasonal crime accross different precincts in \n Seattle, WA. \nThe percentage of", input$Pick_Crime,  "crimes in Seattle, 
-                        on average, is", perc_crime_selected,  " % in", input$changeSeason , ". There were, ", sum_crime_selected, "of" , input$Pick_Crime, "type crimes and ", sum_all_crime, " total \ncrimes
-                        from 2008 to 2014")
+                           on average, is", perc_crime_selected,  " % in", input$changeSeason , ". There were, ", sum_crime_selected, "of" , input$Pick_Crime, "type crimes and ", sum_all_crime, " total \ncrimes
+                           from 2008 to 2014")
     analysis_text
     
-  })
-  
+  }) 
   
   # Table allows for crime by crime comparison of frequency during specific seasons
   output$crimeTable <- renderTable({
